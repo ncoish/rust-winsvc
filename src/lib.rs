@@ -1,6 +1,7 @@
 extern crate winapi;
 
-use winapi::winsvc;
+mod util;
+mod service;
 
 #[cfg(test)]
 mod tests {
