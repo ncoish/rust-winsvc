@@ -1,7 +1,17 @@
 [package]
-name = "winsvc"
+name = "rust_winsvc"
 version = "0.1.0"
 authors = ["Nick Coish <nick.coish@gmail.com>"]
 
+[lib]
+name = "rust_winsvc"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rust_winsvc_test"
+path = "src/main.rs"
+
 [dependencies]
+#winsvc-derive = { path = "rust-winsvc-derive" }
 winapi = "0.2.8"
+advapi32-sys = "0.2.0"
