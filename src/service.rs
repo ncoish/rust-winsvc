@@ -5,6 +5,7 @@ use advapi32;
 
 use util;
 use std;
+use std::error;
 
 #[derive(Debug)]
 pub enum ServiceAccept {
@@ -87,6 +88,19 @@ pub enum ServiceControl {
     STOP,
     PAUSE,
     CONTINUE,
+    SHUTDOWN,
+}
+
+impl ServiceControl {
+    pub fn from_dw(value: DWORD) -> Result<Self, Box<error::Error>> {
+        match value {
+            winsvc::SERVICE_CONTROL_STOP => Ok(ServiceControl::STOP),
+            winsvc::SERVICE_CONTROL_PAUSE => Ok(ServiceControl::PAUSE),
+            winsvc::SERVICE_CONTROL_CONTINUE => Ok(ServiceControl::CONTINUE),
+            winsvc::SERVICE_CONTROL_SHUTDOWN => Ok(ServiceControl::SHUTDOWN),
+            unknown_value => Err(From::from(format!("No ServiceControl variant matching: {:?}", unknown_value))),
+        }
+    }
 }
 
 #[derive(Debug)]
